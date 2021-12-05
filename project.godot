@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "DaveData",
+"language": "GDScript",
+"path": "res://data/SaveData.gd"
+} ]
+_global_script_class_icons={
+"DaveData": ""
+}
+
+[application]
+
+config/name="Track Helper"
+run/main_scene="res://UnifiedLog.tscn"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://sun.png"
+
+[display]
+
+window/size/width=720
+window/size/height=1480
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
