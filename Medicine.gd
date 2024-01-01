@@ -1,15 +1,15 @@
 extends Control
 
 
-export var MedKey: String
-export var MaxEntries : int = 10
-onready var TimeContainer = $VBoxContainer/TimeContainer
+@export var MedKey: String
+@export var MaxEntries : int = 10
+@onready var TimeContainer = $VBoxContainer/TimeContainer
 const TimeEntryResource = preload("res://TimeEntry.tscn")
 
 
 func _on_Button_pressed():
 	var timeEntries = TimeContainer.get_children()
-	var newTime = TimeEntryResource.instance()
+	var newTime = TimeEntryResource.instantiate()
 	TimeContainer.add_child(newTime)
 	newTime.setupCurrentTime()
 	TimeContainer.move_child(newTime,0)
@@ -17,7 +17,7 @@ func _on_Button_pressed():
 	
 func _on_Button2_pressed():
 	var timeEntries = TimeContainer.get_children()
-	var newTime = TimeEntryResource.instance()
+	var newTime = TimeEntryResource.instantiate()
 	TimeContainer.add_child(newTime)
 	newTime.setupCurrentTimeWithTaken(2)
 	TimeContainer.move_child(newTime,0)

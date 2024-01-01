@@ -1,48 +1,62 @@
 extends Control
 
-onready var TimeDateLabel : Label = $HBoxContainer/TimeDateText
-onready var NameLabel : Label = $HBoxContainer/NameLabel
+@onready var TimeDateLabel : Label = $HBoxContainer/LayoutController/TimeDateText
+@onready var NameLabel : Label = $HBoxContainer/LayoutController/NameLabel
+@onready var TakenLabel : Label = $HBoxContainer/LayoutController/TakenLabel
+
 var AttachedTime : Dictionary
-var Time : Dictionary
+var Times : Dictionary
 var Name : String
 var Taken : int = 1
 
-func setData(name:String, taken:int, time:String) -> void:
+func setData(name:String, taken:int, new_time_data:String) -> void:
 	Name = name
 	Taken = taken
-	Time = parse_json(time)
-	setupFromDateTimeObject(Time)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(new_time_data)
+	if not new_time_data.is_empty():
+		Times = test_json_conv.get_data()
+		setupFromDateTimeObject(Times)
+	else:
+		TimeDateLabel.text = "Time data corrupted"
 	setNameLabel()
+	setTakenLabel()
 
-func saveToFile(file: File) -> void:
-	file.store_line(var2str(Name))
-	file.store_line(var2str(Taken))
-	file.store_line(to_json(var2str(Time)))
+func saveToFile(file: FileAccess) -> void:
+	file.store_line(var_to_str(Name))
+	file.store_line(var_to_str(Taken))
+	var time_demo = JSON.stringify(var_to_str(Times))
+	file.store_line(JSON.stringify(var_to_str(Times)))
 
 func setupCurrentTime():
-	Time = OS.get_datetime()
-	TimeDateLabel.text = getFormattedDateTimeString(OS.get_datetime())
+	Times = Time.get_datetime_dict_from_system()
+	TimeDateLabel.text = getFormattedDateTimeString(Time.get_datetime_dict_from_system())
 
 func setupCurrentTimeWithTaken(taken: int):
 	Taken = taken
-	Time = OS.get_datetime()
-	TimeDateLabel.text = getFormattedDateTimeString(OS.get_datetime())
+	Times = Time.get_datetime_dict_from_system()
+	TimeDateLabel.text = getFormattedDateTimeString(Time.get_datetime_dict_from_system())
+	setTakenLabel()
 
 func setupCurrentTimeWithTakenAndName(taken: int, name: String):
 	Taken = taken
-	Time = OS.get_datetime()
+	Times = Time.get_datetime_dict_from_system()
 	Name = name
 	setNameLabel()
-	TimeDateLabel.text = getFormattedDateTimeString(OS.get_datetime())
+	setTakenLabel()
+	TimeDateLabel.text = getFormattedDateTimeString(Time.get_datetime_dict_from_system())
 
 func setNameLabel():
 	NameLabel.text = Name
+
+func setTakenLabel():
+	TakenLabel.text = "x" + str(Taken)
 
 func setupFromDateTimeObject(dateTime: Dictionary):
 	TimeDateLabel.text = getFormattedDateTimeString(dateTime)
 
 func getFormattedDateTimeString(dateTime : Dictionary) -> String:
-	var timestring = getDay(dateTime.get("weekday")) + " - " + getAmPmHour(dateTime.get("hour")) + ":" + getMinutes(dateTime.get("minute")) + " " + getAmPm(dateTime.get("hour")) + " x" + str(Taken)
+	var timestring = getDay(dateTime.get("weekday")) + " - " + getAmPmHour(dateTime.get("hour")) + ":" + getMinutes(dateTime.get("minute")) + " " + getAmPm(dateTime.get("hour")) 
 	return timestring
 
 func getAmPmHour(hour:int) -> String:
@@ -75,6 +89,6 @@ func getDay(dayNumber: int) -> String:
 		return "Fri"
 	if (dayNumber == 6):
 		return "Sat"
-	if (dayNumber == 7):
+	if (dayNumber == 0):
 		return "Sun"
 	return "Someday"
