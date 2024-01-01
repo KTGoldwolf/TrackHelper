@@ -2,8 +2,8 @@
 
 [ext_resource type="FontFile" path="res://THFontBig.tres" id="1"]
 [ext_resource type="Theme" uid="uid://l8fwm7ritkr8" path="res://TrackHelperTheme.tres" id="2"]
-[ext_resource type="Texture2D" uid="uid://c47ga366ddt8n" path="res://sun.png" id="3"]
 [ext_resource type="Script" path="res://UnifiedLog.gd" id="4"]
+[ext_resource type="FontFile" uid="uid://bl8gbdunam2s8" path="res://button_font.tres" id="4_7jibe"]
 
 [node name="UnifiedLog" type="Control"]
 layout_mode = 3
@@ -25,35 +25,41 @@ anchor_right = 1.0
 anchor_bottom = 0.05
 offset_bottom = -57.72
 
-[node name="Label" type="Label" parent="TitleAndInfo"]
-layout_mode = 0
-offset_right = 244.0
-offset_bottom = 47.0
-theme_override_fonts/font = ExtResource("1")
-text = "TrackHelper2"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TitleAndInfo"]
-visible = false
-layout_mode = 0
-anchor_left = 1.0
+[node name="HBoxContainer2" type="VBoxContainer" parent="TitleAndInfo"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-offset_left = -217.0
-offset_bottom = 64.0
-grow_horizontal = 0
+anchor_bottom = 0.5
+offset_top = -8.14
+offset_bottom = 69.86
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="TitleAndInfo/HBoxContainer"]
+[node name="AppTitle" type="Label" parent="TitleAndInfo/HBoxContainer2"]
 layout_mode = 2
-texture = ExtResource("3")
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="Label" type="Label" parent="TitleAndInfo/HBoxContainer"]
+[node name="AppTitle2" type="Label" parent="TitleAndInfo/HBoxContainer2"]
 layout_mode = 2
-text = "Help & Info"
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 30
+text = "TrackHelper2"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="ButtonSection" type="HBoxContainer" parent="."]
 layout_mode = 0
 anchor_top = 0.05
 anchor_right = 1.0
 anchor_bottom = 0.2
+offset_top = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -68,39 +74,55 @@ size_flags_vertical = 3
 self_modulate = Color(0.756863, 0.364706, 0.152941, 1)
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_7jibe")
+theme_override_font_sizes/font_size = 55
 text = "Ibuprofen x1"
 
 [node name="Ibuprofen2" type="Button" parent="ButtonSection/Ibuprofen"]
 self_modulate = Color(0.52549, 0.219608, 0.054902, 1)
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_7jibe")
+theme_override_font_sizes/font_size = 55
 text = "Ibuprofen x2"
 
 [node name="Acetaminophen" type="VBoxContainer" parent="ButtonSection"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Acetaminophen1" type="Button" parent="ButtonSection/Acetaminophen"]
 self_modulate = Color(0.152941, 0.486275, 0.756863, 1)
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_7jibe")
+theme_override_font_sizes/font_size = 35
 text = "Acetaminophen x1"
 
 [node name="Acetaminophen2" type="Button" parent="ButtonSection/Acetaminophen"]
 self_modulate = Color(0.0705882, 0.317647, 0.517647, 1)
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_7jibe")
+theme_override_font_sizes/font_size = 35
 text = "Acetaminophen  x2"
 
-[node name="LogLabel" type="Label" parent="."]
-layout_mode = 0
-anchor_top = 0.2
-anchor_bottom = 0.25
+[node name="Med3" type="VBoxContainer" parent="ButtonSection"]
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("1")
-text = "Medicine Log:"
+
+[node name="Med3Log" type="Button" parent="ButtonSection/Med3"]
+self_modulate = Color(0.631373, 0.466667, 0.823529, 1)
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("4_7jibe")
+theme_override_font_sizes/font_size = 50
+text = "Nurtec x1"
 
 [node name="LogContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -108,8 +130,11 @@ anchor_left = 0.05
 anchor_top = 0.25
 anchor_right = 0.95
 anchor_bottom = 0.95
+offset_top = -70.0
+offset_bottom = -70.0
 
 [connection signal="pressed" from="ButtonSection/Ibuprofen/Ibuprofen1" to="." method="_on_Ibuprofen1_pressed"]
 [connection signal="pressed" from="ButtonSection/Ibuprofen/Ibuprofen2" to="." method="_on_Ibuprofen2_pressed"]
 [connection signal="pressed" from="ButtonSection/Acetaminophen/Acetaminophen1" to="." method="_on_Acetaminophen1_pressed"]
 [connection signal="pressed" from="ButtonSection/Acetaminophen/Acetaminophen2" to="." method="_on_Acetaminophen2_pressed"]
+[connection signal="pressed" from="ButtonSection/Med3/Med3Log" to="." method="_on_med_3_log_pressed"]

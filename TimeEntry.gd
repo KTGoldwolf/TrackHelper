@@ -1,7 +1,9 @@
 extends Control
 
-@onready var TimeDateLabel : Label = $HBoxContainer/TimeDateText
-@onready var NameLabel : Label = $HBoxContainer/NameLabel
+@onready var TimeDateLabel : Label = $HBoxContainer/LayoutController/TimeDateText
+@onready var NameLabel : Label = $HBoxContainer/LayoutController/NameLabel
+@onready var TakenLabel : Label = $HBoxContainer/LayoutController/TakenLabel
+
 var AttachedTime : Dictionary
 var Times : Dictionary
 var Name : String
@@ -18,6 +20,7 @@ func setData(name:String, taken:int, new_time_data:String) -> void:
 	else:
 		TimeDateLabel.text = "Time data corrupted"
 	setNameLabel()
+	setTakenLabel()
 
 func saveToFile(file: FileAccess) -> void:
 	file.store_line(var_to_str(Name))
@@ -33,22 +36,27 @@ func setupCurrentTimeWithTaken(taken: int):
 	Taken = taken
 	Times = Time.get_datetime_dict_from_system()
 	TimeDateLabel.text = getFormattedDateTimeString(Time.get_datetime_dict_from_system())
+	setTakenLabel()
 
 func setupCurrentTimeWithTakenAndName(taken: int, name: String):
 	Taken = taken
 	Times = Time.get_datetime_dict_from_system()
 	Name = name
 	setNameLabel()
+	setTakenLabel()
 	TimeDateLabel.text = getFormattedDateTimeString(Time.get_datetime_dict_from_system())
 
 func setNameLabel():
 	NameLabel.text = Name
 
+func setTakenLabel():
+	TakenLabel.text = "x" + str(Taken)
+
 func setupFromDateTimeObject(dateTime: Dictionary):
 	TimeDateLabel.text = getFormattedDateTimeString(dateTime)
 
 func getFormattedDateTimeString(dateTime : Dictionary) -> String:
-	var timestring = getDay(dateTime.get("weekday")) + " - " + getAmPmHour(dateTime.get("hour")) + ":" + getMinutes(dateTime.get("minute")) + " " + getAmPm(dateTime.get("hour")) + " x" + str(Taken)
+	var timestring = getDay(dateTime.get("weekday")) + " - " + getAmPmHour(dateTime.get("hour")) + ":" + getMinutes(dateTime.get("minute")) + " " + getAmPm(dateTime.get("hour")) 
 	return timestring
 
 func getAmPmHour(hour:int) -> String:
@@ -81,6 +89,6 @@ func getDay(dayNumber: int) -> String:
 		return "Fri"
 	if (dayNumber == 6):
 		return "Sat"
-	if (dayNumber == 7):
+	if (dayNumber == 0):
 		return "Sun"
 	return "Someday"

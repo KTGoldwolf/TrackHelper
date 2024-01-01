@@ -2,7 +2,7 @@ extends Control
 
 const TimeEntryResource = preload("res://TimeEntry.tscn")
 @onready var LogContainer = $LogContainer
-@export var MaxEntries : int = 10
+@export var MaxEntries : int = 15
 var ENTRY_SAVE_DATA_PATH = "user://savefile.save"
 
 func _ready():
@@ -86,3 +86,6 @@ func _on_Acetaminophen1_pressed():
 
 func _on_Acetaminophen2_pressed():
 	create_entry("Acetaminophen", 2)
+
+func _on_med_3_log_pressed():
+	create_entry("Nurtec", 1)
