@@ -1,8 +1,8 @@
 extends Control
 
 const TimeEntryResource = preload("res://TimeEntry.tscn")
-onready var LogContainer = $LogContainer
-export var MaxEntries : int = 10
+@onready var LogContainer = $LogContainer
+@export var MaxEntries : int = 10
 var ENTRY_SAVE_DATA_PATH = "user://savefile.save"
 
 func _ready():
@@ -10,36 +10,36 @@ func _ready():
 
 
 func readJournalFromFile() -> void:
-	var save_file = File.new()
-	if not save_file.file_exists(ENTRY_SAVE_DATA_PATH):
+	if not FileAccess.file_exists(ENTRY_SAVE_DATA_PATH):
 		return
-	save_file.open(ENTRY_SAVE_DATA_PATH, File.READ)
+	var openedFile = FileAccess.open(ENTRY_SAVE_DATA_PATH, FileAccess.READ)
 	var lines = getSaveFileLength(ENTRY_SAVE_DATA_PATH)
 	if lines <= 0:
 		return
 	while lines > 0:
-		var newName = str2var(save_file.get_line())
-		var newAmount = str2var(save_file.get_line())
-		var newTime = str2var(save_file.get_line())
-		var newEntry = TimeEntryResource.instance()
+		var newName = str_to_var(openedFile.get_line())
+		var newAmount = str_to_var(openedFile.get_line())
+		var newTime = str_to_var(openedFile.get_line())
+		var newEntry = TimeEntryResource.instantiate()
 		LogContainer.add_child(newEntry)
 		newEntry.setData(newName, newAmount, newTime)
 		lines -= 3
-	save_file.close()
+	openedFile.close()
 
 func load_entries():
-	var save_file = File.new()
-	if not save_file.file_exists("user://savefile.save"):
+	if not FileAccess.file_exists("user://savefile.save"):
 		return
-	save_file.open("user://savefile.save", File.READ)
-	var loadedData = JSON.parse(save_file.get_line())
+	var openFile = FileAccess.open("user://savefile.save", FileAccess.READ)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(openFile.get_line())
+	var loadedData = test_json_conv.get_data()
 	for entry in loadedData:
 		create_entry(entry.name, entry.amount)
-	save_file.close()
+	openFile.close()
 
 func create_entry(name: String, amount: int):
 	var timeEntries = LogContainer.get_children()
-	var newTime = TimeEntryResource.instance()
+	var newTime = TimeEntryResource.instantiate()
 	LogContainer.add_child(newTime)
 	newTime.setupCurrentTimeWithTakenAndName(amount, name)
 	LogContainer.move_child(newTime,0)
@@ -57,8 +57,7 @@ func trimExtraEntries():
 
 func saveEntries():
 	var entries = LogContainer.get_children()
-	var save_file = File.new()
-	save_file.open("user://savefile.save", File.WRITE)
+	var save_file = FileAccess.open("user://savefile.save", FileAccess.WRITE)
 	for val in entries:
 		val.saveToFile(save_file)
 	#save_file.store_line(JSON.print(entries))
@@ -66,10 +65,9 @@ func saveEntries():
 	pass
 
 func getSaveFileLength(filePath : String) -> int:
-	var save_file = File.new()
-	if not save_file.file_exists(filePath):
+	if not FileAccess.file_exists(filePath):
 		return 0
-	save_file.open(filePath, File.READ)
+	var save_file = FileAccess.open(filePath, FileAccess.READ)
 	var lines = 0
 	while !save_file.eof_reached():
 		lines += 1

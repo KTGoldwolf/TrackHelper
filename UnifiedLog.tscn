@@ -1,65 +1,56 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://kxp7hkrrugsg"]
 
-[ext_resource path="res://THFontBig.tres" type="DynamicFont" id=1]
-[ext_resource path="res://TrackHelperTheme.tres" type="Theme" id=2]
-[ext_resource path="res://sun.png" type="Texture" id=3]
-[ext_resource path="res://UnifiedLog.gd" type="Script" id=4]
+[ext_resource type="FontFile" path="res://THFontBig.tres" id="1"]
+[ext_resource type="Theme" uid="uid://l8fwm7ritkr8" path="res://TrackHelperTheme.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://c47ga366ddt8n" path="res://sun.png" id="3"]
+[ext_resource type="Script" path="res://UnifiedLog.gd" id="4"]
 
 [node name="UnifiedLog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("2")
+script = ExtResource("4")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.494118, 0.447059, 0.447059, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0.243137, 0.27451, 0.380392, 1)
 
 [node name="TitleAndInfo" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 0.05
-margin_bottom = -57.72
+offset_bottom = -57.72
 
 [node name="Label" type="Label" parent="TitleAndInfo"]
-margin_right = 244.0
-margin_bottom = 47.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_right = 244.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("1")
 text = "TrackHelper2"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TitleAndInfo"]
 visible = false
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -217.0
-margin_bottom = 64.0
+offset_left = -217.0
+offset_bottom = 64.0
 grow_horizontal = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="TitleAndInfo/HBoxContainer"]
-margin_right = 64.0
-margin_bottom = 64.0
-texture = ExtResource( 3 )
+layout_mode = 2
+texture = ExtResource("3")
 
 [node name="Label" type="Label" parent="TitleAndInfo/HBoxContainer"]
-margin_left = 68.0
-margin_top = 14.0
-margin_right = 217.0
-margin_bottom = 50.0
+layout_mode = 2
 text = "Help & Info"
 
 [node name="ButtonSection" type="HBoxContainer" parent="."]
+layout_mode = 0
 anchor_top = 0.05
 anchor_right = 1.0
 anchor_bottom = 0.2
@@ -67,72 +58,56 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Ibuprofen" type="VBoxContainer" parent="ButtonSection"]
-margin_right = 358.0
-margin_bottom = 222.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Ibuprofen1" type="Button" parent="ButtonSection/Ibuprofen"]
-self_modulate = Color( 0.756863, 0.364706, 0.152941, 1 )
-margin_right = 358.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
+self_modulate = Color(0.756863, 0.364706, 0.152941, 1)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 text = "Ibuprofen x1"
 
 [node name="Ibuprofen2" type="Button" parent="ButtonSection/Ibuprofen"]
-self_modulate = Color( 0.52549, 0.219608, 0.054902, 1 )
-margin_top = 104.0
-margin_right = 358.0
-margin_bottom = 204.0
-rect_min_size = Vector2( 0, 100 )
+self_modulate = Color(0.52549, 0.219608, 0.054902, 1)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 text = "Ibuprofen x2"
 
 [node name="Acetaminophen" type="VBoxContainer" parent="ButtonSection"]
-margin_left = 362.0
-margin_right = 720.0
-margin_bottom = 222.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Acetaminophen1" type="Button" parent="ButtonSection/Acetaminophen"]
-self_modulate = Color( 0.152941, 0.486275, 0.756863, 1 )
-margin_right = 358.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
+self_modulate = Color(0.152941, 0.486275, 0.756863, 1)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 text = "Acetaminophen x1"
 
 [node name="Acetaminophen2" type="Button" parent="ButtonSection/Acetaminophen"]
-self_modulate = Color( 0.0705882, 0.317647, 0.517647, 1 )
-margin_top = 104.0
-margin_right = 358.0
-margin_bottom = 204.0
-rect_min_size = Vector2( 0, 100 )
+self_modulate = Color(0.0705882, 0.317647, 0.517647, 1)
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 text = "Acetaminophen  x2"
 
 [node name="LogLabel" type="Label" parent="."]
+layout_mode = 0
 anchor_top = 0.2
 anchor_bottom = 0.25
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Medicine Log:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LogContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.05
 anchor_top = 0.25
 anchor_right = 0.95
 anchor_bottom = 0.95
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="ButtonSection/Ibuprofen/Ibuprofen1" to="." method="_on_Ibuprofen1_pressed"]
 [connection signal="pressed" from="ButtonSection/Ibuprofen/Ibuprofen2" to="." method="_on_Ibuprofen2_pressed"]
